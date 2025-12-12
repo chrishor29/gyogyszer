@@ -1,3 +1,5 @@
+@echo off
+cd /d "D:\GYOGYSZER"
 
 REM git rm videos\drainage.mp4
 
