@@ -16,7 +16,7 @@
 2026, January, 2, 13 
 2026, January, 2, 1 
 2026, January, 1, 15 
-2026, January, 31, <abbr style="background-color:orange" title="(alvás közben és felébredtem rá) - sokáig voltam fennt előtte">13</abbr> 
+2026, January, 1, <abbr style="background-color:orange" title="(alvás közben és felébredtem rá) - sokáig voltam fennt előtte">13</abbr> 
 2026, January, 1, 1 
 </div>
 <div id="data_2025" style="display:none">
@@ -3928,7 +3928,41 @@
 
 <details><summary style="background-color:black; color:white">grafikonok - dózis(y) & idő(x) ➜ rohamok</summary>
 </details>
+<details id="seizureList"><summary style="background-color:black; color:white">rohamok</summary>
+	<li></li>
+  <b>2023</b>
+	...
+	<li>2022.05.14 - napközben</li>
+	<li>2022.04.27 - napközben</li>
+	<li>2022.04.11 - félálom / alvás</li>
+	<li>2022.04.11 - napközben</li>
+	<li>2022.03.31 - napközben</li>
+	<li>2022.03.11 - napközben</li>
+	<li>2022.02.07 - félálom / alvás</li>
+  <b>2022</b>
+	<li>2022.12.20 - félálom / alvás</li>
+	<li>2022.10.04 - napközben</li>
+	<li>2022.09.17 - napközben</li>
+	<li>2022.08.26 - napközben</li>
+	<li>2022.07.15 - napközben</li>
+	<li>2022.06.26 - félálom / alvás</li>
+	<li>2022.06.25 - félálom / alvás</li>
+	<li>2022.06.25 - félálom / alvás</li>
+	<li>2022.06.25 - félálom / alvás</li>
+	<li>2022.06.08 - félálom / alvás</li>
+	<li>2022.05.25 - félálom / alvás</li>
+	<li>2022.05.06 - félálom / alvás</li>
+	<li>2022.04.23 - napközben</li>
+	<li>2022.04.07 - félálom / alvás</li>
+	<li>2022.04.04 - félálom / alvás</li>
+	<li>2022.03.17 - félálom / alvás</li>
+	<li>2022.03.01 - napközben</li>
+	<li>2022.02.19 - napközben</li>
+	<li>2022.02.19 - napközben</li>
+	<li>2022.01.11 - napközben</li>
+</details>
 <details><summary style="background-color:black; color:white">felírt gyógyszerek</summary>
+  <b>szedés</b>
 	<li>2025.12.10 ➜ Briviact[50mg+50mg], Lamolep[100mg+100mg]</li>
 	<li>2025.08.08 ➜ Briviact[50mg+50mg], Lamolep[75mg+75mg]</li>
 	<li>2025.07.26 ➜ Briviact[50mg+50mg], Lamolep[75mg+50mg]</li>
@@ -3951,8 +3985,6 @@
 	<li>2022.02.25 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg]</li>
 	<li>2022.02.14 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg+150mg]</li>
 	<li>2021.12.14 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg+150mg+150mg]</li>
-  <b>szedés</b>
-	<li></li>
   <b>felírás</b>
 	<li>2025.12.09 ➜ Briviact 50 mg 2x1 + Lamolep 100 mg 2x1</li>
 	<li>2025.07.14 ➜ Briviact 50 mg 2x1 + Lamolep 75 mg 2x1</li>
@@ -4165,8 +4197,8 @@
 
 https://www.zesz.hu/szakrendeleseink/felnott/11
 
-<script>
-	var arrYears = ["2022", "2023", "2024", "2025", "2026"]
+<script> <!-- gyógyszer & roham táblázatok -->
+	let arrYears = ["2026", "2025", "2024", "2023", "2022"]
 	var object = []
 	
 	// create Tables
@@ -4459,6 +4491,72 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 </script>
 
 
+<script> <!-- rohamok dátuma -->
+	const MONTHS = {
+		January: "01", February: "02", March: "03",
+		April: "04", May: "05", June: "06",
+		July: "07", August: "08", September: "09",
+		October: "10", November: "11", December: "12"
+	};
+
+	function collectSeizures(year) {
+		const container = document.getElementById(`data_${year}`);
+		if (!container) return [];
+		console.log(year)
+
+		const lines = container.innerHTML.split("<br>");
+		const results = [];
+
+		lines.forEach(line => {
+			if (!line.includes("<abbr")) return;
+
+			const temp = document.createElement("div");
+			temp.innerHTML = line;
+
+			const abbr = temp.querySelector("abbr");
+			if (!abbr) return;
+
+			const text = temp.textContent.split(",").map(x => x.trim());
+			const [y, month, day] = text;
+			console.log(text)
+
+			let type = "";
+			const style = abbr.style.backgroundColor;
+
+			if (style === "red") type = "napközben";
+			if (style === "orange") type = "félálom / alvás";
+
+			results.push({
+				date: `${y}.${MONTHS[month]}.${day.padStart(2, "0")}`,
+				type
+			});
+		});
+
+		return results;
+	}
+
+	// ===== FUTTATÁS =====
+
+	const years = [2026, 2025, 2024, 2023, 2022];
+	const list = document.getElementById("seizureList");
+
+	years.forEach(year => {
+		const data = collectSeizures(year);
+		if (!data.length) return;
+
+		const header = document.createElement("b");
+		header.textContent = year;
+		list.appendChild(header);
+
+		data.forEach(item => {
+			const li = document.createElement("li");
+			li.textContent = `${item.date} – ${item.type}`;
+			list.appendChild(li);
+		});
+	});
+</script>
+
+
 <style>
 	html, body {
 		overflow-x: hidden;
@@ -4492,6 +4590,18 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 	}
 	details[open] > summary.mainTitle { color: yellow }
 	
+	/* ne mutassa a nyilat: egyik android, másik gép */
+	details > summary { list-style: none; } 
+	details summary::-webkit-details-marker { display:none; }
+	
+	li { 
+		margin-left: 16px;
+	}
+	ul, ol { 
+		margin-left: -20px; /* annyira nem kell beljebb a következőt */
+		margin-top: 0; /* fölötte ne legyen hej */
+		margin-bottom: 0; /* alatta ne legyen hej */
+	}
 </style>
 
 
