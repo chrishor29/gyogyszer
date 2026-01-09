@@ -993,7 +993,7 @@
 2024, November, 27, 20 
 2024, November, 27, [15] 
 2024, November, 27, 9 
-2024, November, 26, <abbr style="background-color:" title="nemfájt utána; 12h fennvoltam már; de kipihent voltam(előtte rendesen aludtam); gyógyszert keveset vettem ugye(tegretolt); 10-30p mire helyrejöttem kb">22</abbr> 
+2024, November, 26, <abbr style="background-color:orange" title="nemfájt utána; 12h fennvoltam már; de kipihent voltam(előtte rendesen aludtam); gyógyszert keveset vettem ugye(tegretolt); 10-30p mire helyrejöttem kb">22</abbr> 
 2024, November, 26, 20 
 2024, November, 26, [15] 
 2024, November, 26, 10 
@@ -3928,38 +3928,8 @@
 
 <details><summary style="background-color:black; color:white">grafikonok - dózis(y) & idő(x) ➜ rohamok</summary>
 </details>
-<details id="seizureList"><summary style="background-color:black; color:white">rohamok</summary>
-	<li></li>
-  <b>2023</b>
-	...
-	<li>2022.05.14 - napközben</li>
-	<li>2022.04.27 - napközben</li>
-	<li>2022.04.11 - félálom / alvás</li>
-	<li>2022.04.11 - napközben</li>
-	<li>2022.03.31 - napközben</li>
-	<li>2022.03.11 - napközben</li>
-	<li>2022.02.07 - félálom / alvás</li>
-  <b>2022</b>
-	<li>2022.12.20 - félálom / alvás</li>
-	<li>2022.10.04 - napközben</li>
-	<li>2022.09.17 - napközben</li>
-	<li>2022.08.26 - napközben</li>
-	<li>2022.07.15 - napközben</li>
-	<li>2022.06.26 - félálom / alvás</li>
-	<li>2022.06.25 - félálom / alvás</li>
-	<li>2022.06.25 - félálom / alvás</li>
-	<li>2022.06.25 - félálom / alvás</li>
-	<li>2022.06.08 - félálom / alvás</li>
-	<li>2022.05.25 - félálom / alvás</li>
-	<li>2022.05.06 - félálom / alvás</li>
-	<li>2022.04.23 - napközben</li>
-	<li>2022.04.07 - félálom / alvás</li>
-	<li>2022.04.04 - félálom / alvás</li>
-	<li>2022.03.17 - félálom / alvás</li>
-	<li>2022.03.01 - napközben</li>
-	<li>2022.02.19 - napközben</li>
-	<li>2022.02.19 - napközben</li>
-	<li>2022.01.11 - napközben</li>
+<details><summary style="background-color:black; color:white">rohamok</summary>
+	<div id="seizureList"></div>
 </details>
 <details><summary style="background-color:black; color:white">felírt gyógyszerek</summary>
   <b>szedés</b>
@@ -4500,36 +4470,35 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 	};
 
 	function collectSeizures(year) {
-		const container = document.getElementById(`data_${year}`);
+		let container = document.getElementById(`data_${year}`);
 		if (!container) return [];
-		console.log(year)
+		//console.log(year)
+		//console.log(container)
 
-		const lines = container.innerHTML.split("<br>");
-		const results = [];
+		let lines = container.innerHTML.split("\n");
+		let results = ""
 
 		lines.forEach(line => {
+			//console.log(line)
 			if (!line.includes("<abbr")) return;
 
-			const temp = document.createElement("div");
-			temp.innerHTML = line;
+			let style
+			if ( line.indexOf("background-color:red") ) style = "napközben"
+			if ( line.indexOf("background-color:orange") ) style = "félálom / alvás"
+			//console.log(style)
 
-			const abbr = temp.querySelector("abbr");
-			if (!abbr) return;
-
-			const text = temp.textContent.split(",").map(x => x.trim());
-			const [y, month, day] = text;
-			console.log(text)
-
-			let type = "";
-			const style = abbr.style.backgroundColor;
-
-			if (style === "red") type = "napközben";
-			if (style === "orange") type = "félálom / alvás";
-
-			results.push({
-				date: `${y}.${MONTHS[month]}.${day.padStart(2, "0")}`,
-				type
+			//console.log(line)
+			let temp = line.slice(0,line.indexOf("<abbr"))
+			// hónapnév → szám
+			Object.keys(MONTHS).forEach(month => {
+				temp = temp.replace(month, MONTHS[month])
 			});
+			temp = temp + style
+
+			//console.log(temp)
+
+			results = results + "<li>"+temp+"</li>\n"
+			//console.log(results)
 		});
 
 		return results;
@@ -4537,22 +4506,15 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 
 	// ===== FUTTATÁS =====
 
-	const years = [2026, 2025, 2024, 2023, 2022];
-	const list = document.getElementById("seizureList");
-
+	let years = [2026, 2025, 2024, 2023, 2022];
 	years.forEach(year => {
-		const data = collectSeizures(year);
+		let data = collectSeizures(year);
+		//console.log(data)
+		//console.log(data.length)
 		if (!data.length) return;
-
-		const header = document.createElement("b");
-		header.textContent = year;
-		list.appendChild(header);
-
-		data.forEach(item => {
-			const li = document.createElement("li");
-			li.textContent = `${item.date} – ${item.type}`;
-			list.appendChild(li);
-		});
+		
+		let div = document.getElementById("seizureList");
+		div.innerHTML = div.innerHTML + "<b>"+year+"</b>" + data
 	});
 </script>
 
