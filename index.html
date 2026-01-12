@@ -4482,10 +4482,12 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 			//console.log(line)
 			if (!line.includes("<abbr")) return;
 
-			let style
-			if ( line.indexOf("background-color:red") ) style = "napközben"
-			if ( line.indexOf("background-color:orange") ) style = "félálom / alvás"
+			let style = null
+			//console.log(line +" - "+ line.indexOf("background-color:red"))
+			if ( line.indexOf("background-color:red") != -1 ) style = "napközben"
+			if ( line.indexOf("background-color:orange") != -1 ) style = "félálom / alvás"
 			//console.log(style)
+			if ( style == null ) return
 
 			//console.log(line)
 			let temp = line.slice(0,line.indexOf("<abbr"))
