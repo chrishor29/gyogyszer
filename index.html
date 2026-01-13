@@ -3932,29 +3932,7 @@
 	<div id="seizureList"></div>
 </details>
 <details><summary style="background-color:black; color:white">felírt gyógyszerek</summary>
-  <b>szedés</b>
-	<li>2025.12.10 ➜ Briviact[50mg+50mg], Lamolep[100mg+100mg]</li>
-	<li>2025.08.08 ➜ Briviact[50mg+50mg], Lamolep[75mg+75mg]</li>
-	<li>2025.07.26 ➜ Briviact[50mg+50mg], Lamolep[75mg+50mg]</li>
-	<li>2025.07.01 ➜ Briviact[50mg+50mg], Lamolep[50mg+50mg]</li>
-	<li>2025.06.04 ➜ Tegretol[200mg], Briviact[50mg+50mg], Lamolep[50mg+50mg]</li>
-	<li>2025.04.22 ➜ Tegretol[400mg], Briviact[50mg+50mg], Lamolep[50mg+50mg]</li>
-	<li>2025.04.17 ➜ Tegretol[400mg+200mg+400mg], Briviact[50mg+50mg], Lamolep[50mg+50mg]</li>
-	<li>2025.04.03 ➜ Tegretol[400mg+200mg+400mg], Briviact[50mg+50mg], Lamolep[25mg+25mg+25mg]</li>
-	<li>2025.03.19 ➜ Tegretol[400mg+200mg+400mg], Briviact[50mg+50mg], Lamolep[25mg+25mg]</li>
-	<li>2025.03.02 ➜ Tegretol[400mg+200mg+400mg], Briviact[50mg+50mg], Lamolep[25mg]</li>
-	<li>2024.07.18 ➜ Tegretol[400mg+200mg+400mg], Briviact[50mg+50mg]</li>
-	<li>2024.03.05 ➜ Tegretol[400mg+200mg+400mg]</li>
-	<li>2024.02.27 ➜ Tegretol[400mg+200mg+400mg], Convulex[300mg]</li>
-	<li>2024.02.11 ➜ Tegretol[400mg+200mg+400mg], Convulex[300mg+300mg]</li>
-	<li>2023.09.27 ➜ Tegretol[400mg+200mg+400mg], Convulex[500mg+500mg]</li>
-	<li>2023.08.29 ➜ Tegretol[400mg+200mg+400mg], Convulex[300mg+300mg]</li>
-	<li>2022.07.27 ➜ Tegretol[400mg+200mg+400mg]</li>
-	<li>2022.05.16 ➜ Tegretol[400mg+400mg]</li>
-	<li>2022.03.06 ➜ Tegretol[200mg+200mg+200mg]</li>
-	<li>2022.02.25 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg]</li>
-	<li>2022.02.14 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg+150mg]</li>
-	<li>2021.12.14 ➜ Tegretol[200mg+200mg+200mg], Convulex[150mg+150mg+150mg]</li>
+  <b>szedés</b> <div id="divSzedes"></div>
   <b>felírás</b>
 	<li>2025.12.09 ➜ Briviact 50 mg 2x1 + Lamolep 100 mg 2x1</li>
 	<li>2025.07.14 ➜ Briviact 50 mg 2x1 + Lamolep 75 mg 2x1</li>
@@ -4460,7 +4438,6 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 
 </script>
 
-
 <script> <!-- rohamok dátuma -->
 	const MONTHS = {
 		January: "01", February: "02", March: "03",
@@ -4518,6 +4495,218 @@ https://www.zesz.hu/szakrendeleseink/felnott/11
 		let div = document.getElementById("seizureList");
 		div.innerHTML = div.innerHTML + "<b>"+year+"</b>" + data
 	});
+</script>
+
+<script> <!-- gyógyszerváltás dátuma -->
+	// gyógyszereket mikor mit szedtem
+	const medicationChanges = [
+		{ date: "2025-12-10",
+			meds: {
+				Briviact: "50+50",
+				Lamolep: "100+100"
+			}
+		},
+		{ date: "2025-08-08",
+			meds: {
+				Briviact: "50+50",
+				Lamolep: "75+75"
+			}
+		},
+		{ date: "2025-07-06",
+			meds: {
+				Briviact: "50+50",
+				Lamolep: "75+50"
+			}
+		},
+		{ date: "2025-07-01",
+			meds: {
+				Briviact: "50+50",
+				Lamolep: "50+50"
+			}
+		},
+		{ date: "2025-06-04",
+			meds: {
+				Tegretol: "200",
+				Briviact: "50+50",
+				Lamolep: "50+50"
+			}
+		},
+		{ date: "2025-04-22",
+			meds: {
+				Tegretol: "400",
+				Briviact: "50+50",
+				Lamolep: "50+50"
+			}
+		},
+		{ date: "2025-04-17",
+			meds: {
+				Tegretol: "400+200+400",
+				Briviact: "50+50",
+				Lamolep: "50+50"
+			}
+		},
+		{ date: "2025-04-03",
+			meds: {
+				Tegretol: "400+200+400",
+				Briviact: "50+50",
+				Lamolep: "25+25+25"
+			}
+		},
+		{ date: "2025-03-19",
+			meds: {
+				Tegretol: "400+200+400",
+				Briviact: "50+50",
+				Lamolep: "25+25"
+			}
+		},
+		{ date: "2025-03-02",
+			meds: {
+				Tegretol: "400+200+400",
+				Briviact: "50+50",
+				Lamolep: "25"
+			}
+		},
+		{ date: "2024-07-18",
+			meds: {
+				Tegretol: "400+200+400",
+				Briviact: "50+50",
+			}
+		},
+		{ date: "2024-03-05",
+			meds: {
+				Tegretol: "400+200+400",
+			}
+		},
+		{ date: "2024-02-27",
+			meds: {
+				Tegretol: "400+200+400",
+				Convulex: "300",
+			}
+		},
+		{ date: "2024-02-11",
+			meds: {
+				Tegretol: "400+200+400",
+				Convulex: "300+300",
+			}
+		},
+		{ date: "2023-09-27",
+			meds: {
+				Tegretol: "400+200+400",
+				Convulex: "500+500",
+			}
+		},
+		{ date: "2023-08-29",
+			meds: {
+				Tegretol: "400+200+400",
+				Convulex: "300+300",
+			}
+		},
+		{ date: "2022-07-27",
+			meds: {
+				Tegretol: "400+200+400",
+			}
+		},
+		{ date: "2022-05-16",
+			meds: {
+				Tegretol: "400+400",
+			}
+		},
+		{ date: "2022-03-06",
+			meds: {
+				Tegretol: "200+200+200",
+			}
+		},
+		{ date: "2022-02-25",
+			meds: {
+				Tegretol: "200+200+200",
+				Convulex: "150",
+			}
+		},
+		{ date: "2022-02-14",
+			meds: {
+				Tegretol: "200+200+200",
+				Convulex: "150+150",
+			}
+		},
+		{ date: "2021-12-14",
+			meds: {
+				Tegretol: "200+200+200",
+				Convulex: "150+150+150",
+			}
+		},
+	];
+
+	function formatDate(isoDate) {
+		let d = new Date(isoDate);
+		let y = d.getFullYear();
+		let m = String(d.getMonth() + 1).padStart(2, "0");
+		let day = String(d.getDate()).padStart(2, "0");
+		return `${y}.${m}.${day}`;
+	}
+
+	function writeSzedes() {
+		let div = document.getElementById("divSzedes");
+		div.innerHTML = ""; // reset
+
+		for (let change of medicationChanges) {
+			let dateStr = formatDate(change.date);
+
+			let medsStr = Object.entries(change.meds)
+				.map(([name, dose]) => `${name}[${dose}mg]`)
+				.join(", ");
+
+			let li = document.createElement("li");
+			li.textContent = `${dateStr} ➜ ${medsStr}`;
+
+			div.appendChild(li);
+		}
+	}
+
+	writeSzedes();
+
+
+	function buildMedicationPeriods(changes) {
+		function parseDose(doseStr) {
+			return doseStr
+				.split("+")
+				.map(d => parseInt(d))
+				.reduce((a, b) => a + b, 0);
+		}
+		
+		let periods = [];
+
+		for (let i = 0; i < changes.length; i++) {
+			let current = changes[i];
+			let next = changes[i - 1]; // mert időben visszafelé vannak
+			
+			let today = new Date();
+			
+			let period = {
+				start: new Date(current.date),
+				end: next ? new Date(next.date) : today,
+				meds: {}
+			};
+
+			for (let [name, doseStr] of Object.entries(current.meds)) {
+				period.meds[name] = parseDose(doseStr);
+			}
+
+			periods.push(period);
+		}
+
+		return periods;
+	}
+	const medicationPeriods = buildMedicationPeriods(medicationChanges)
+	
+	function getMedsForDate(dateStr, periods) {
+		const date = new Date(dateStr);
+
+		return periods.find(p =>
+			date >= p.start && (!p.end || date < p.end)
+		);
+	}	
+	let testvar = getMedsForDate("2025-06-20", medicationPeriods);
+	console.log(testvar)
 </script>
 
 
