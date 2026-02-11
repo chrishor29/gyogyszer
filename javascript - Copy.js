@@ -1,18 +1,4 @@
 const arrYears = [2026, 2025, 2024, 2023, 2022]
-
-// Night mode
-function checkSystemMode() {
-	let isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-	//console.log("Dark mode?", isSystemDark);
-	if ( isSystemDark ) {
-		document.body.classList.add("night")
-	} else if ( document.body.classList.contains("night") ) {
-		document.body.classList.remove("night")
-	}
-}
-checkSystemMode()
-
-
 // gyógyszereket mikor mit szedtem
 const medicationChanges = [
 	{ date: "2025-12-10",
@@ -410,8 +396,8 @@ function seizures() {
 
 			let style = null
 			//console.log(line +" - "+ line.indexOf("background-color:red"))
-			if ( line.indexOf("background-color:red") != -1 ) style = "napközben"
-			if ( line.indexOf("background-color:orange") != -1 ) style = "félálom / alvás"
+			if ( line.includes("background-color:red") != -1 ) style = "napközben"
+			if ( line.includes("background-color:orange") != -1 ) style = "félálom / alvás"
 			//console.log(style)
 			if ( style == null ) return
 
@@ -576,8 +562,8 @@ function graphs() {
 			if (!line.includes("<abbr")) return
 			
 			let style = null
-			if (line.includes("background-color:red") || line.includes("background-color: red")) style = "day"
-			if (line.includes("background-color:orange") || line.includes("background-color: orange")) style = "sleep"
+			if (line.includes("background-color:red") != -1) style = "day"
+			if (line.includes("background-color:orange") != -1) style = "sleep"
 			if (style == null) return
 			
 			// Parse date from line: "year, month, day, hour"
