@@ -15,6 +15,12 @@ checkSystemMode()
 
 // gyógyszereket mikor mit szedtem
 const medicationChanges = [
+	{ date: "2026-07-29",
+		meds: {
+			Briviact: "50+100",
+			Lamolep: "100+100"
+		}
+	},
 	{ date: "2025-12-10",
 		meds: {
 			Briviact: "50+50",
