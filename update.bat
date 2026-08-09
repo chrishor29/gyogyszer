@@ -1,13 +1,21 @@
 @echo off
 cd /d "D:\GYOGYSZER"
 
-git config --global user.name "chrishor29"
-git config --global user.email "chrishor29@gmail.com"
-
-git remote add origin
-git pull origin master
+echo Git add...
 git add .
-git commit -m "make some changes"
-git push origin master
 
+git diff --cached --quiet
+
+if errorlevel 1 (
+    echo Commit...
+    git commit -m "Automatic update"
+
+    echo Push...
+    git push origin master
+) else (
+    echo Nincs valtozas.
+)
+
+echo.
+echo Kesz.
 pause
