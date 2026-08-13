@@ -18,6 +18,12 @@ const medicationChanges = [
 	{ date: "2026-08-05",
 		meds: {
 			Briviact: "100+100",
+			Lamolep: "200+100"
+		}
+	},
+	{ date: "2026-08-05",
+		meds: {
+			Briviact: "100+100",
 			Lamolep: "100+100"
 		}
 	},
